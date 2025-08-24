@@ -4,9 +4,9 @@
  * OBJETIVO: Entender como printf() se comporta com strace
  * 
  * TAREFA: Este código está completo. Você só precisa:
- * 1. Compilar: gcc src/ex1a_printf.c -o ex1a_printf
+ * 1. Compilar: gcc src/ex1a_printf.c -o ex1a_printf 
  * 2. Executar: ./ex1a_printf
- * 3. Observar com strace: strace -e write ./ex1a_printf
+ * 3. Observar com strace: strace -e write ./ex1a_printf (para aparecer o total de chamadas strace -c -e write ./ex1a_printf)
  */
 
 #include <stdio.h>
