@@ -42,7 +42,7 @@ int main() {
      */
 
 
-    while (/* TODO: condição do loop */) {
+    while (bytes_lidos =! 0) {
         total_reads++;
         
         /*
@@ -53,15 +53,18 @@ int main() {
         
 
         for (int i = 0; i < bytes_lidos; i++) {
-            if (bytes_lidos[i] == '\n'):
-                total_linhas++;
             /* TODO: verificar '\n' e incrementar total_linhas */
+            if (buffer[i] == '\n') {
+                total_linhas++;
+            }
+
         }
         
         /*
          * TODO 3: Somar total de caracteres
          */
         /* TODO: total_caracteres += ... */;
+        total_caracteres += bytes_lidos; /* Em C: 1 caracter = 1 Byte*/
         
         if (total_reads % 10 == 0) {
             printf("Processadas %d chamadas read()...\n", total_reads);
@@ -71,7 +74,7 @@ int main() {
     /*
      * TODO 4: Verificar se houve erro na leitura
      */
-    if (/* TODO: condição de erro */) {
+    if (bytes_lidos == -1) {
         perror("Erro na leitura");
         close(fd);
         return 1;
