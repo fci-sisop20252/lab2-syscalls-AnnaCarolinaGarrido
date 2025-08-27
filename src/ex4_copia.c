@@ -59,14 +59,14 @@ int main() {
      * read() do origem, write() no destino
      */
 
-    bytes_lidos = read(fd_origem, buffer, (BUFFER_SIZE-1)); 
+    //bytes_lidos = read(fd_origem, buffer, (BUFFER_SIZE-1)); 
+    bytes_lidos = 1;
+    bytes_escritos = 1;
 
-    while (bytes_lidos != 0 ) {
+    while (bytes_lidos != 0) {
         total_operacoes++;
         
-        if (total_operacoes > 1) {
-        bytes_lidos = read(fd_origem, buffer, (BUFFER_SIZE-1)); 
-        }
+        bytes_lidos = read(fd_origem, buffer, (BUFFER_SIZE)); 
         
         /* COMPLETE AQUI */; 
 
@@ -75,10 +75,9 @@ int main() {
          */
 
 
-
         /* TODO: write no destino */;
 
-        bytes_escritos = write(fd_destino, buffer, strlen(buffer));
+        bytes_escritos = write(fd_destino, buffer, bytes_lidos);
         
         /*
          * TODO 5: Verificar se escreveu corretamente

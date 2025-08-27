@@ -31,13 +31,4 @@ Algumas considerações importantes:
 
 Final do arquivo de origem.
 Total aproximado: 1200 bytes.
-Com buffer de 256 bytes, espere cerca de 5 operações read/write.s syscalls = melhor performance
-- Mas lembre de balancear performance vs uso de memória. Buffers maiores consomem mais memória.
-
-Final do arquivo de origem.
-Total aproximado: 1200 bytes.
-Com buffer de 256 bytes, espere cerca de 5 operações read/write.s syscalls = melhor performance
-- Mas lembre de balancear performance vs uso de memória. Buffers maiores consomem mais memória.
-
-Final do arquivo de origem.
-Total a
+Com buffer de 256 bytes, espere cerca de 5 operações read/write.

@@ -64,7 +64,7 @@ Se o retorno da syscall read() for igual a 0, indica que o arquivo foi lido comp
 **3. Por que verificar retorno de cada syscall?**
 
 ```
-Porque é pelo retorno do syscall que é possível analisar se a operação deu certo ou não.
+Porque é pelo retorno do syscall que é possível analisar se a operação requerida ao kernel deu certo (retorno de sucesso) ou não (erro), e em caso de erros é o tipo de retorno que nos permite realizar o tratamenot correto de erros.
 ```
 
 ---
@@ -81,10 +81,10 @@ Porque é pelo retorno do syscall que é possível analisar se a operação deu 
 
 | Buffer Size | Chamadas read() | Tempo (s) |
 |-------------|-----------------|-----------|
-| 16          |                 |           |
-| 64          |                 |           |
-| 256         |                 |           |
-| 1024        |                 |           |
+| 16          |        88       |  0.000201 |
+| 64          |        22       |  0.000085 |
+| 256         |        7        |  0.000068 |
+| 1024        |        3        |  0.000067 |
 
 ### 🔍 Análise
 
@@ -111,41 +111,46 @@ Quanto maior a qtde de syscalls realizada, pior a perfomance do processo, pois q
 ## 4️⃣ Exercício 4 - Cópia de Arquivo
 
 ### 📈 Resultados:
-- Bytes copiados: _____
-- Operações: _____
-- Tempo: _____ segundos
-- Throughput: _____ KB/s
+- Bytes copiados: 1364
+- Operações: 7
+- Tempo: 0.000256 segundos
+- Throughput: 5203.25 KB/s
 
 ### ✅ Verificação:
 ```bash
 diff dados/origem.txt dados/destino.txt
 ```
-Resultado: [ ] Idênticos [ ] Diferentes
+Resultado: [X] Idênticos [ ] Diferentes
 
 ### 🔍 Análise
 
 **1. Por que devemos verificar que bytes_escritos == bytes_lidos?**
 
 ```
-[Sua análise aqui]
+A comparação de bytes_escritos e bytes_lidos indica se a cópia do conteúdo do arquivo de origem foi realizada de forma integral para o arquivo destino, se for igual, a cópia do arquivo foi realizada com sucesso. Se a quantidade de bytes escritos for menor que os bytes lidos, a cópia foi construida parcialmente, isto é, faltam conteúdos do arquivo origem serem transferidos para o arquivo destino.
 ```
 
 **2. Que flags são essenciais no open() do destino?**
 
 ```
-[Sua análise aqui]
+São elas: 
+O_WRONLY: dá permissão para o file pointer para somente escrever no arquivo
+O_CREAT: se o arquivo deste nome não existir no momento do open(), um arquivo será criado 
+O_TRUNC: caso o arquivo já exista ele apaga o conteúdo antigo do arquivo no momento do open, impedindo que possíveis duplicidades ocorram
+
 ```
 
 **3. O número de reads e writes é igual? Por quê?**
 
 ```
-[Sua análise aqui]
+Não são iguais, o número de read() é de 8 enquanto o número de write() é de 18. Isso acontece porque o syscall write não garante que todos os dados do buffer serão escritos no arquivo destino em apenas uma só chamada, eventualmente ele poderá dividir o conteúdo a ser gravado em várias partes menores a depender do contexto. Portanto neste caso o totalizador de write é maior do que o totalizar do read.
+Além de que, mesmo se o read() e write() fossem perfeitamente alinhados, ainda poderia existir uma pequena diferença dado a maneira como o código está escrito, já que para o while quebrar seu looping, seria necessário o read() rodar mais uma vez para verificar se o valor retornado é 0 (indicando fim do arquivo), neste caso eu teria uma chamada adicional do read() em relação ao write()
 ```
 
 **4. Como você saberia se o disco ficou cheio?**
 
 ```
-[Sua análise aqui]
+Se acontecer do disco ficar cheio durante a execução, a syscall write() terá um retorno de erro (ou seja, -1) indicando que a gravação de conteúdo no arquivo não poderá ser completada dado a falta de espaço no disco. Esse erro em específico também aparecerá como "Erro na escrita: No space left on device" ao chamar a função perror() que descreve o erro encontrado
 ```
 
 **5. O que acontece se esquecer de fechar os arquivos?**
