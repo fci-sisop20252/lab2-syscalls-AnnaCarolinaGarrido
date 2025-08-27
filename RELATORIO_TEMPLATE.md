@@ -35,8 +35,8 @@ Vale ressaltar que no fundo o printf() também utiliza o write() só que há um 
 ## 2️⃣ Exercício 2 - Leitura de Arquivo
 
 ### 📊 Resultados da execução:
-- File descriptor: _____
-- Bytes lidos: _____
+- File descriptor: 3
+- Bytes lidos: 127
 
 ### 🔧 Comando strace:
 ```bash
@@ -48,19 +48,23 @@ strace -e openat,read,close ./ex2_leitura
 **1. Qual file descriptor foi usado? Por que não começou em 0, 1 ou 2?**
 
 ```
-[Sua análise aqui]
+O file descriptor utilizado para realizar a leitura do arquivo txt é o 3, ele não começou em 0, 1 ou 2 pois estes identificadores já são reservados pelo sistema operacional para realizar operações criticas
+
+0 - stdin: entrada padrão (normalmente o teclado) 
+1 - stdout: saída padrão (normalmente o terminal) 
+2 - stderr: saída de erro
 ```
 
 **2. Como você sabe que o arquivo foi lido completamente?**
 
 ```
-[Sua análise aqui]
+Se o retorno da syscall read() for igual a 0, indica que o arquivo foi lido completamente.
 ```
 
 **3. Por que verificar retorno de cada syscall?**
 
 ```
-[Sua análise aqui]
+Porque é pelo retorno do syscall que é possível analisar se a operação deu certo ou não.
 ```
 
 ---
@@ -68,10 +72,10 @@ strace -e openat,read,close ./ex2_leitura
 ## 3️⃣ Exercício 3 - Contador com Loop
 
 ### 📋 Resultados (BUFFER_SIZE = 64):
-- Linhas: _____ (esperado: 25)
-- Caracteres: _____
-- Chamadas read(): _____
-- Tempo: _____ segundos
+- Linhas: 25 (esperado: 25)
+- Caracteres: 1300
+- Chamadas read(): 22
+- Tempo: 0.000478 segundos
 
 ### 🧪 Experimentos com buffer:
 
@@ -87,19 +91,19 @@ strace -e openat,read,close ./ex2_leitura
 **1. Como o tamanho do buffer afeta o número de syscalls?**
 
 ```
-[Sua análise aqui]
+Quanto menor o buffer, maior o número de syscalls necessários para ler o arquivo completo, pois o buffer armazena o conteúdo para cada chamada do read() e quanto menor o espaço armazenado maior será o numero de syscalls necessárias para ler o conteúdo 
 ```
 
 **2. Todas as chamadas read() retornaram BUFFER_SIZE bytes? Discorra brevemente sobre**
 
 ```
-[Sua análise aqui]
+Nem todas, quando a leitura do arquivo está no final o Buffer_size pode retornar uma quantidade de bytes menor do que as outras chamadas anteriores (que utilizavam todo o espaço do buffer_size uma vez que o arquivo não foi lido completamente)
 ```
 
 **3. Qual é a relação entre syscalls e performance?**
 
 ```
-[Sua análise aqui]
+Quanto maior a qtde de syscalls realizada, pior a perfomance do processo, pois quando um syscall é realizado o kernel precisa assumir o controle do processo para realizar a operação desejada, isto é, ele interrompe o processo atual armazena os dados atuais do processo para poder retormar depois e quando o so finaliza ele volta para o processo inicial, toda essa troca de controle é chamada de troca de contexto o que leva tempo e gera queda de performance
 ```
 
 ---
