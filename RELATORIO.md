@@ -174,7 +174,7 @@ Todos os processos que são executados por um computador são processados inicia
 **2. Qual é o seu entendimento sobre a importância dos file descriptors?**
 
 ```
-Os file descriptors são utilizados como um identificador único que atrela um arquivo a um processo durante sua execução. Eles permitem com os recursos sejam acessados de forma unificada e padronizada (uma vez que as syscalls write(), read() e entre outras utilizam do FD como parâmetro. Desta forma, o SO consegue fazer o gerenciamento de recursos relacionados a arquivos sem com que o processo se preocupe com as especificações do sistema. Além disso, os fd's permitem que o sistema operacional realize a gestão de recursos do sistema ao saber exatamente os arquivos que um processo está utilizando 
+Os file descriptors são utilizados como um identificador único que atrela um arquivo a um processo durante sua execução. Eles permitem com os recursos sejam acessados de forma unificada e padronizada (uma vez que as syscalls write(), read() e entre outras utilizam do FD como parâmetro). Desta forma, o SO consegue fazer o gerenciamento de recursos relacionados a arquivos sem com que o processo se preocupe com as especificações do sistema. Além disso, os fd's permitem que o sistema operacional realize a gestão de recursos do sistema ao saber exatamente os arquivos que um processo está utilizando 
 ```
 
 **3. Discorra sobre a relação entre o tamanho do buffer e performance:**
@@ -203,9 +203,9 @@ A partir dos resultados obtidos pelos comandos, é notório que o Programa utili
 
 ## 📤 Entrega
 Certifique-se de ter:
-- [ ] Todos os códigos com TODOs completados
-- [ ] Traces salvos em `traces/`
-- [ ] Este relatório preenchido como `RELATORIO.md`
+- [X] Todos os códigos com TODOs completados
+- [X] Traces salvos em `traces/`
+- [X] Este relatório preenchido como `RELATORIO.md`
 
 ```bash
 strace -e write -o traces/ex1a_trace.txt ./ex1a_printf
