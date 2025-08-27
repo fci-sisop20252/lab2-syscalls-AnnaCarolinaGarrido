@@ -41,7 +41,7 @@ int main() {
      * Loop até read() retornar 0 (fim do arquivo)
      */
 
-    bytes_lidos = read(fd, buffer, (BUFFER_SIZE-1)); /* COMPLETE AQUI */;
+    bytes_lidos = read(fd, buffer, (BUFFER_SIZE)); 
 
     while (bytes_lidos != 0) {
         total_reads++;
@@ -50,7 +50,7 @@ int main() {
          * TODO 2: Contar caracteres '\n' no buffer
          */
         if (total_reads > 1) {
-        bytes_lidos = read(fd, buffer, (BUFFER_SIZE-1)); /* COMPLETE AQUI */;
+        bytes_lidos = read(fd, buffer, (BUFFER_SIZE)); 
         }
         
 

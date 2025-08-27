@@ -191,12 +191,12 @@ time ./ex4_copia
 time cp dados/origem.txt dados/destino_cp.txt
 ```
 
-**Qual foi mais rápido?** _____
+**Qual foi mais rápido?** O Programa (0m0.004s contra 0m0.008s do cp do sistema)
 
 **Por que você acha que foi mais rápido?**
 
 ```
-[Sua análise aqui]
+A partir dos resultados obtidos pelos comandos, é notório que o Programa utiliza menos tempo de processamento do so (modo kernel) do que o cp do sistema, isso acontece pois o cp é uma instrução geral do sistema responsável por se adequar a diversos cenários e arquivos diferentes, por isso a complexidade de código é maior do que o programa, que por ser mais personalizado, possui uma complexidade mais baixa por ter menos etapas e verificações, logo é mais rápido.
 ```
 
 ---

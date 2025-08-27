@@ -46,7 +46,7 @@ int main() {
      * Use read() para ler até (BUFFER_SIZE - 1) bytes
      */
 
-    bytes_lidos = read(fd, buffer, (BUFFER_SIZE-1)); /* COMPLETE AQUI */;
+    bytes_lidos = read(fd, buffer, (BUFFER_SIZE-1)); 
     
     /*
      * TODO 4: Verificar se a leitura foi bem-sucedida
