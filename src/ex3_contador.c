@@ -42,7 +42,7 @@ int main() {
      */
 
 
-    while (bytes_lidos =! 0) {
+    while (bytes_lidos != 0) {
         total_reads++;
         
         /*
