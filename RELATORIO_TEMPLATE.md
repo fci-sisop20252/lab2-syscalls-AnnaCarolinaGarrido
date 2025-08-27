@@ -156,7 +156,7 @@ Se acontecer do disco ficar cheio durante a execução, a syscall write() terá 
 **5. O que acontece se esquecer de fechar os arquivos?**
 
 ```
-[Sua análise aqui]
+Quando o arquivo não é fechado através de seu respectivo file descriptor, o sistema operacional entende que esse arquivo ainda está sendo utilizado pelo processo, logo ele mantém o recurso alocado para permitir que o arquivo seja aberto a qualquer momento durante a execução. Nesse sentido, utilizamos mais recursos que o necessário prejudicando a gestão de recursos pelo so e além disso, abrir vários arquivos sem fecha-los pode gerar sobrecarga impedindo a abertura de novos arquivos por conta do limite de file descriptors disponíveis
 ```
 
 ---
@@ -168,19 +168,19 @@ Se acontecer do disco ficar cheio durante a execução, a syscall write() terá 
 **1. Como as syscalls demonstram a transição usuário → kernel?**
 
 ```
-[Sua análise aqui]
+Todos os processos que são executados por um computador são processados inicialmente em modo de usuário, este modo não permite com que o processo acesse estruturas críticas do sistema que podem gerar falhas e alterações graves. Somente o sistema operacional possui o modo kernel que permite a execução de operações críticas que afetam diretamente os recursos base do computador. Quando um processo precisa realizar uma doperação crítica, uma sycall é enviada para o sistema operacional, que por sua vez assume o controle e realiza a transferência do modo usuário para o modo kernel através da troca de contexto, o kernel executa a operação e quando termina retorna o resultado para o processo que reassume o controle do fluxo de execução. 
 ```
 
 **2. Qual é o seu entendimento sobre a importância dos file descriptors?**
 
 ```
-[Sua análise aqui]
+Os file descriptors são utilizados como um identificador único que atrela um arquivo a um processo durante sua execução. Eles permitem com os recursos sejam acessados de forma unificada e padronizada (uma vez que as syscalls write(), read() e entre outras utilizam do FD como parâmetro. Desta forma, o SO consegue fazer o gerenciamento de recursos relacionados a arquivos sem com que o processo se preocupe com as especificações do sistema. Além disso, os fd's permitem que o sistema operacional realize a gestão de recursos do sistema ao saber exatamente os arquivos que um processo está utilizando 
 ```
 
 **3. Discorra sobre a relação entre o tamanho do buffer e performance:**
 
 ```
-[Sua análise aqui]
+Quanto maior tamanho do buffer utilizado nas syscalls, melhor é a performance do processo. Um buffer nada mais é que o espaço alocado a uma sycall que o permite armazenar o resultado total ou parcial de uma operação. Se o tamanho do resultado (por exemplo o conteúdo de um arquivo) for maior do que o tamanho do meu buffer, é necessário realizar uma outra syscall para completar a operação completa (neste caso, a leitura do arquivo). Cada sycall prejudica a perfomance do sistema, pois durante uma syscall é realizado a troca de contexto para transferir o controle do processo para o kernel (so) e depois para o processo novamente quando a operação critica é realizada
 ```
 
 ### ⚡ Comparação de Performance
