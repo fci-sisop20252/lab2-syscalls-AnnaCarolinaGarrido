@@ -81,17 +81,17 @@ Porque é pelo retorno do syscall que é possível analisar se a operação requ
 
 | Buffer Size | Chamadas read() | Tempo (s) |
 |-------------|-----------------|-----------|
-| 16          |        88       |  0.000201 |
-| 64          |        22       |  0.000085 |
-| 256         |        7        |  0.000068 |
-| 1024        |        3        |  0.000067 |
+| 16          |        83       |  0.00023  |
+| 64          |        22       |  0.000090 |
+| 256         |        7        |  0.000062 |
+| 1024        |        3        |  0.000071 |
 
 ### 🔍 Análise
 
 **1. Como o tamanho do buffer afeta o número de syscalls?**
 
 ```
-Quanto menor o buffer, maior o número de syscalls necessários para ler o arquivo completo, pois o buffer armazena o conteúdo para cada chamada do read() e quanto menor o espaço armazenado maior será o numero de syscalls necessárias para ler o conteúdo 
+Quanto menor o buffer, maior o número de syscalls necessários para ler o arquivo completo, pois o buffer armazena o conteúdo para cada chamada do read() e quanto menor o espaço disponível para armazenamento, maior será o numero de syscalls necessárias para ler o conteúdo 
 ```
 
 **2. Todas as chamadas read() retornaram BUFFER_SIZE bytes? Discorra brevemente sobre**
@@ -113,8 +113,8 @@ Quanto maior a qtde de syscalls realizada, pior a perfomance do processo, pois q
 ### 📈 Resultados:
 - Bytes copiados: 1364
 - Operações: 7
-- Tempo: 0.000256 segundos
-- Throughput: 5203.25 KB/s
+- Tempo: 0.000214 segundos
+- Throughput: 6224.45 KB/s
 
 ### ✅ Verificação:
 ```bash
